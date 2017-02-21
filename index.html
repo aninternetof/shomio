@@ -35,7 +35,7 @@
         <div class="collapse navbar-toggleable-xs" id="bs-navbar-collapse-1">
           <ul class="nav navbar-nav pull-xs-right">
             <li class="nav-item">
-              <a id="exportButton" onclick="exportContent()" class="btn btn-outline-success my-2 my-sm-0">export</a>
+              <button id="exportButton" onclick="exportContent()" class="btn btn-outline-success my-2 my-sm-0">export</button>
             </li>
             <li class="nav-item">
               <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#editModal">
@@ -82,7 +82,11 @@
               <input type="text" class="form-control" id="descriptionInput" placeholder="Talk some about this card.">
             </div>
             <div class="form-group">
-              <label for="tagsInput">Image</label>
+              <label for="linkInput">External Link</label>
+              <input type="text" class="form-control" id="linkInput" placeholder="https://www.google.com">
+            </div>
+            <div class="form-group">
+              <label for="tagsInput">Tags</label>
               <input type="text" class="form-control" id="tagsInput" placeholder="electrical,rf,antenna">
             </div>
             <button type="submit" class="btn btn-primary">save</button>
