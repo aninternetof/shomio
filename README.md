@@ -3,7 +3,7 @@ Filterable cards. Practice with VueJs.
 
 ## use
 ```bash
-$ git clone https://github.com/aninternetof/shomio.git && cd showmio
+$ git clone https://github.com/aninternetof/shomio.git && cd shomio
 $ firefox index.html
 ```
 
