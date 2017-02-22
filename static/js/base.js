@@ -23,6 +23,55 @@ var content = new Vue({
   },
 });
 
+Vue.component('entry-tag', {
+  props: ['tag'],
+  template:`
+    <button onclick="handleTagClick(event)" class="btn btn-secondary">{{ tag }}</button>
+  `
+});
+
+var tags = new Vue({
+  el: '#tags',
+  data: {
+    tags: []
+  },
+});
+
+getTags();
+currentTagFilters = [];
+
+function clearAllFilters() {
+  currentTagFilters = [];
+  content.entries = contentJson;
+}
+
+function filter() {
+  console.log(currentTagFilters);
+  if (currentTagFilters.length === 0) {
+    content.entries = contentJson;
+  } else {
+    var entries = [];
+    for (var i=0; i<contentJson.length; i++) {
+      if (findOne(contentJson[i].tags, currentTagFilters)) {
+        entries.push(contentJson[i]);
+      }
+    }
+    content.entries = entries;
+  }
+}
+
+/**
+ * @description determine if an array contains one or more items from another array.
+ * @param {array} haystack the array to search.
+ * @param {array} arr the array providing items to check for in the haystack.
+ * @return {boolean} true|false if haystack contains at least one item from arr.
+ */
+var findOne = function (haystack, arr) {
+  return arr.every(function (v) {
+    return haystack.indexOf(v) >= 0;
+  });
+};
+
 function removeEntry(title) {
   var toRemove = [];
   for (var i=0; i<content.entries.length; i++) {
@@ -30,7 +79,6 @@ function removeEntry(title) {
       toRemove.push(i);
     }
   }
-  console.log(toRemove);
   for (var j=0; j<toRemove.length; j++) {
     content.entries.splice(toRemove[j]-j,1);
   }
@@ -44,11 +92,21 @@ function getEntry(title) {
   }
 }
 
+function handleTagClick(event) {
+  event.preventDefault();
+  tag = $(event.target).text();
+  ind = currentTagFilters.indexOf(tag);
+  if (ind < 0) {
+    currentTagFilters.push(tag);
+  } else {
+    currentTagFilters.splice(ind, 1);
+  }
+  filter();
+}
+
 function editEntry(event) {
   event.preventDefault();
-  console.log(event.target.id);
   entry = getEntry(event.target.id);
-  console.log(entry);
   $('#titleInput').val(entry.title);
   $('#imageInput').val(entry.image);
   $('#descriptionInput').val(entry.description);
@@ -68,16 +126,29 @@ function exportContent() {
   a.click();
 }
 
+function getTags() {
+  entryTags = [];
+  for (var i=0; i<content.entries.length; i++) {
+    for (var j=0; j<content.entries[i].tags.length; j++) {
+      if (entryTags.indexOf(content.entries[i].tags[j]) < 0) {
+        entryTags.push(content.entries[i].tags[j]);
+      }
+    }
+  }
+  tags.tags = entryTags;
+}
+
 $('#editForm').submit(function(e) {
-    e.preventDefault();
-    entry = {};
-    entry.title = $('#titleInput').val();
-    entry.image = $('#imageInput').val();
-    entry.description = $('#descriptionInput').val();
-    entry.link = $('#linkInput').val();
-    entry.tags = $('#tagsInput').val().split(',');
-    /* get rid of any others with the same name */
-    removeEntry(entry.title)
-    content.entries.push(entry);
-    $('#editModal').modal('hide');
+  e.preventDefault();
+  entry = {};
+  entry.title = $('#titleInput').val();
+  entry.image = $('#imageInput').val();
+  entry.description = $('#descriptionInput').val();
+  entry.link = $('#linkInput').val();
+  entry.tags = $('#tagsInput').val().split(',');
+  /* get rid of any others with the same name */
+  removeEntry(entry.title);
+  content.entries.push(entry);
+  getTags();
+  $('#editModal').modal('hide');
 });

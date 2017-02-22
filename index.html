@@ -48,11 +48,23 @@
     </nav>
   </div>
 
-
   <div class="container">
 
-    <div id="content">
-      <entry-card v-for="item in entries" v-bind:entry="item"></entry-card>
+    <div class="row" style="margin-bottom: 2rem;">
+      <div class="col-md-12">
+        <div id="tags">
+          <entry-tag v-for="item in tags" v-bind:tag="item"></entry-tag>
+          <button onclick="clearAllFilters()" class="btn btn-secondary">CLEAR ALL</button>
+        </div>
+        <div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div id="content">
+        <entry-card v-for="item in entries" v-bind:entry="item"></entry-card>
+      </div>
     </div>
 
   </div>
