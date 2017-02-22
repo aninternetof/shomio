@@ -52,9 +52,9 @@ var adminBar = new Vue({
   }
 });
 
-function setAdmin(state) {
-  adminBar.admin = state;
-  content.admin = state;
+function toggleAdmin(state) {
+  adminBar.admin = !adminBar.admin;
+  content.admin = !adminBar.admin;
 }
 
 getTags();

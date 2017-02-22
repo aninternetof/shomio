@@ -70,8 +70,8 @@
       </div>
     </div>
 
-    <div class="text-md-center footer">
-      <a href="#" class="text-muted" onclick="setAdmin(true)">admin</a>
+    <div v-if"adminDisabled" class="text-md-center footer">
+      <a href="#" class="text-muted" onclick="toggleAdmin(true)">admin</a>
     </div>
 
   </div>
