@@ -1,5 +1,5 @@
 body {
-    background-color: #ECEFF1
+    background-color: #ECEFF1;
 }
 
 .tag-button {
@@ -15,4 +15,9 @@ body {
 
 .navbar-brand {
     font-size: 3.375rem;
+}
+
+.tag-button:focus {
+    background-color: #ECEFF1;
+    color: #0275d8;
 }

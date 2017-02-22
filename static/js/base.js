@@ -7,7 +7,7 @@ Vue.component('entry-card', {
         <div class="card-block">
           <h4 class="card-title">{{ entry.title }}</h4>
           <a :id=entry.title v-if="admin" onclick="editEntry(event)" class="card-text" href="#">edit</a>
-          <p class="card-text">{{ entry.description }}</p>
+          <p class="card-text" v-html="entry.description"></p>
           <a v-if="linkIsGood" :href="entry.link" class="btn btn-secondary">more info</a>
         </div>
         <div class="card-block">
