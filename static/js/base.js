@@ -8,14 +8,19 @@ Vue.component('entry-card', {
           <h4 class="card-title">{{ entry.title }}</h4>
           <a :id=entry.title v-if="admin" onclick="editEntry(event)" class="card-text" href="#">edit</a>
           <p class="card-text">{{ entry.description }}</p>
-          <a v-if="entry.link" :href="link" class="btn btn-secondary">more info</a>
+          <a v-if="linkIsGood" :href="link" class="btn btn-secondary">more info</a>
         </div>
         <div class="card-block">
           <span class="tag-list text-muted" v-for="tag in entry.tags">{{ tag }}</span>
         </div>
       </div>
     </div>
-    `
+  `,
+  computed: {
+    linkIsGood: function () {
+      return this.entry.link.includes('http');
+    },
+  }
 });
 
 var content = new Vue({
