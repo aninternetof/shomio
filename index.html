@@ -50,11 +50,23 @@
 
   <div class="container">
 
+    <div id="test">
+      <p v-if="enable">
+        Now you see me.
+      </p>
+    </div>
+
+    <div id="test2">
+      <p v-if="enable">
+        Again you see me.
+      </p>
+    </div>
+
     <div class="row" style="margin-bottom: 2rem;">
       <div class="col-md-12">
         <div id="tags">
           <entry-tag v-for="item in tags" v-bind:tag="item"></entry-tag>
-          <button onclick="clearAllFilters()" class="btn btn-secondary">CLEAR ALL</button>
+          <a onclick="clearAllFilters()" class="btn btn-outline-danger">clear all</a>
         </div>
         <div>
         </div>

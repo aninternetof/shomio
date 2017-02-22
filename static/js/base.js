@@ -8,8 +8,10 @@ Vue.component('entry-card', {
           <h4 class="card-title">{{ entry.title }}</h4>
           <a :id=entry.title onclick="editEntry(event)" class="card-text" href="#">edit</a>
           <p class="card-text">{{ entry.description }}</p>
-          <a :href="entry.link" class="btn btn-outline-primary">more info</a>
-          <div><button type="button" class="btn btn-secondary btn-sm" v-for="tag in entry.tags">{{ tag }}</button></div>
+          <a :href="entry.link" class="btn btn-secondary">more info</a>
+        </div>
+        <div class="card-block">
+          <span class="tag-list text-muted" v-for="tag in entry.tags">{{ tag }}</span>
         </div>
       </div>
     </div>
@@ -19,14 +21,14 @@ Vue.component('entry-card', {
 var content = new Vue({
   el: '#content',
   data: {
-    entries: contentJson
+    entries: contentJson,
   },
 });
 
 Vue.component('entry-tag', {
   props: ['tag'],
   template:`
-    <button onclick="handleTagClick(event)" class="btn btn-secondary">{{ tag }}</button>
+    <a href="#" onclick="handleTagClick(event)" class="tag-button btn btn-outline-primary">{{ tag }}</a>
   `
 });
 
@@ -42,6 +44,7 @@ currentTagFilters = [];
 
 function clearAllFilters() {
   currentTagFilters = [];
+  $(".tag-button").removeClass("active");
   content.entries = contentJson;
 }
 
@@ -52,7 +55,7 @@ function filter() {
   } else {
     var entries = [];
     for (var i=0; i<contentJson.length; i++) {
-      if (findOne(contentJson[i].tags, currentTagFilters)) {
+      if (hasAll(contentJson[i].tags, currentTagFilters)) {
         entries.push(contentJson[i]);
       }
     }
@@ -61,12 +64,12 @@ function filter() {
 }
 
 /**
- * @description determine if an array contains one or more items from another array.
+ * @description determine if an array contains all items from another array.
  * @param {array} haystack the array to search.
  * @param {array} arr the array providing items to check for in the haystack.
- * @return {boolean} true|false if haystack contains at least one item from arr.
+ * @return {boolean} true|false if haystack contains all items from arr.
  */
-var findOne = function (haystack, arr) {
+var hasAll = function (haystack, arr) {
   return arr.every(function (v) {
     return haystack.indexOf(v) >= 0;
   });
@@ -101,6 +104,7 @@ function handleTagClick(event) {
   } else {
     currentTagFilters.splice(ind, 1);
   }
+  $(event.target).toggleClass("active");
   filter();
 }
 
