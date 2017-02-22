@@ -33,15 +33,15 @@
         <h1 class="navbar-brand">CES 2017</h1>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-toggleable-xs" id="bs-navbar-collapse-1">
-          <ul class="nav navbar-nav pull-xs-right">
-            <li class="nav-item">
-              <button id="exportButton" onclick="exportContent()" class="btn btn-outline-success my-2 my-sm-0">export</button>
-            </li>
-            <li class="nav-item">
-              <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#editModal">
-                new
-              </button>
-            </li>
+          <ul id="admin-bar" class="nav navbar-nav pull-xs-right">
+            <template v-if="admin">
+              <li class="nav-item">
+                <button id="exportButton" onclick="exportContent()" class="btn btn-outline-success my-2 my-sm-0">export</button>
+              </li>
+              <li class="nav-item">
+                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#editModal">new</button>
+              </li>
+            </template>
           </ul>
         </div>
       </div>
@@ -49,18 +49,6 @@
   </div>
 
   <div class="container">
-
-    <div id="test">
-      <p v-if="enable">
-        Now you see me.
-      </p>
-    </div>
-
-    <div id="test2">
-      <p v-if="enable">
-        Again you see me.
-      </p>
-    </div>
 
     <div class="row" style="margin-bottom: 2rem;">
       <div class="col-md-12">
@@ -75,7 +63,7 @@
 
     <div class="row">
       <div id="content">
-        <entry-card v-for="item in entries" v-bind:entry="item"></entry-card>
+        <entry-card v-for="item in entries" v-bind:entry="item" v-bind:admin="admin"></entry-card>
       </div>
     </div>
 

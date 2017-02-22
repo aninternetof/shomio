@@ -1,12 +1,12 @@
 Vue.component('entry-card', {
-  props: ['entry'],
+  props: ['entry', 'admin'],
   template:`
     <div class="col-md-6">
       <div class="card">
         <img class="card-img-top" style="width:100%" :src="entry.image">
         <div class="card-block">
           <h4 class="card-title">{{ entry.title }}</h4>
-          <a :id=entry.title onclick="editEntry(event)" class="card-text" href="#">edit</a>
+          <a :id=entry.title v-if="admin" onclick="editEntry(event)" class="card-text" href="#">edit</a>
           <p class="card-text">{{ entry.description }}</p>
           <a :href="entry.link" class="btn btn-secondary">more info</a>
         </div>
@@ -22,6 +22,7 @@ var content = new Vue({
   el: '#content',
   data: {
     entries: contentJson,
+    admin: false,
   },
 });
 
@@ -38,6 +39,18 @@ var tags = new Vue({
     tags: []
   },
 });
+
+var adminBar = new Vue({
+  el: '#admin-bar',
+  data : {
+    admin: false
+  }
+});
+
+function setAdmin(state) {
+  adminBar.admin = state;
+  content.admin = state;
+}
 
 getTags();
 currentTagFilters = [];
