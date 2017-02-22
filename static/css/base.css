@@ -3,11 +3,16 @@ body {
 }
 
 .tag-button {
-    margin-right: 0.125rem;
+    margin-right: 0.444rem;
+    margin-bottom: 0.667rem;
 }
 
 .tag-list {
     margin-right: 0.875rem;
     font-style: italic;
     font-size: 0.875rem;
+}
+
+.navbar-brand {
+    font-size: 3.375rem;
 }
