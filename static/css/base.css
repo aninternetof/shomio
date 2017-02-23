@@ -21,3 +21,13 @@ body {
     margin-top: 80px;
     margin-bottom: 10px;
 }
+
+.btn.active:focus {
+    color: #ECEFF1 !important;
+    background-color: #025AA5 !important;
+}
+
+.btn:focus {
+    color: #025AA5 !important;
+    background-color: #ECEFF1 !important;
+}
